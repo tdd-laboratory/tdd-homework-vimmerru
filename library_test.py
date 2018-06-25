@@ -30,6 +30,41 @@ class TestCase(unittest.TestCase):
     def test_no_integers(self):
         self.assert_extract("no integers", library.integers)
 
+    def test_dates(self):
+
+        fixtures = [
+            ['I was born on 2015-07-25.', '2015-07-25'],
+            ['I was born on 2015-07-25 18:22.', '2015-07-25 18:22'],
+            ['I was born on 2015-07-25 18:22:19.', '2015-07-25 18:22:19'],
+            ['I was born on 2015-07-25 18:22:19.123.', '2015-07-25 18:22:19.123'],
+            ['I was born on 2015-07-25T18:22.', '2015-07-25T18:22'],
+            ['I was born on 2015-07-25T18:22:19.', '2015-07-25T18:22:19'],
+            ['I was born on 2015-07-25T18:22:19.123.', '2015-07-25T18:22:19.123'],
+            ['I was born on 2015-07-25 18:22MDT.', '2015-07-25 18:22MDT'],
+            ['I was born on 2015-07-25 18:22:19MDT.', '2015-07-25 18:22:19MDT'],
+            ['I was born on 2015-07-25 18:22:19.123MDT.', '2015-07-25 18:22:19.123MDT'],
+            ['I was born on 2015-07-25T18:22MDT.', '2015-07-25T18:22MDT'],
+            ['I was born on 2015-07-25T18:22:19MDT.', '2015-07-25T18:22:19MDT'],
+            ['I was born on 2015-07-25T18:22:19.123MDT.', '2015-07-25T18:22:19.123MDT'],
+            ['I was born on 2015-07-25 18:22Z.', '2015-07-25 18:22Z'],
+            ['I was born on 2015-07-25 18:22:19Z.', '2015-07-25 18:22:19Z'],
+            ['I was born on 2015-07-25 18:22:19.123Z.', '2015-07-25 18:22:19.123Z'],
+            ['I was born on 2015-07-25T18:22Z.', '2015-07-25T18:22Z'],
+            ['I was born on 2015-07-25T18:22:19Z.', '2015-07-25T18:22:19Z'],
+            ['I was born on 2015-07-25T18:22:19.123Z.', '2015-07-25T18:22:19.123Z'],
+            ['I was born on 2015-07-25 18:22-0800.', '2015-07-25 18:22-0800'],
+            ['I was born on 2015-07-25 18:22:19-0800.', '2015-07-25 18:22:19-0800'],
+            ['I was born on 2015-07-25 18:22:19.123-0800.', '2015-07-25 18:22:19.123-0800'],
+            ['I was born on 2015-07-25T18:22-0800.', '2015-07-25T18:22-0800'],
+            ['I was born on 2015-07-25T18:22:19-0800.', '2015-07-25T18:22:19-0800'],
+            ['I was born on 2015-07-25T18:22:19.123-0800.', '2015-07-25T18:22:19.123-0800'],
+        ]
+
+        for fixture in fixtures:
+            self.assert_extract(fixture[0], library.dates_iso8601, fixture[1])
+
+    def test_dates_fmt2(self):
+        self.assert_extract('I was born on 25 Jan 2017.', library.dates_fmt2, '25 Jan 2017')
 
 if __name__ == '__main__':
     unittest.main()
